@@ -13,7 +13,8 @@ public class Client {
     private static final Scanner input = new Scanner(System.in);
     public Client(String adresseIP) {
         try {
-            Socket s = new Socket(adresseIP,4242);  // Socket avec le port du serveur et son IP
+            int port = 4242;
+            Socket s = new Socket(adresseIP,port);  // Socket avec le port du serveur et son IP
             System.out.println("Connexion établie avec Succès !");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); // Récupere les infos

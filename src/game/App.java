@@ -1,10 +1,10 @@
 package game;
 
 import javafx.application.Application;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
@@ -21,6 +21,7 @@ public final class App extends Application {
 
     @Override
     public void start(final Stage primaryStage) {
+
         if(reseauMode){
             new Connexion();
         } else {
@@ -66,7 +67,7 @@ public final class App extends Application {
 
 
     public static void main(String[] args) {
-        new Menu0();
+        new Menu();
     }
 
     public static void begin(){launch();}

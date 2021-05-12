@@ -53,7 +53,7 @@ public class Menu extends JFrame {
 
 
         // Play
-        // invisible(play);
+        invisible(play);
         play.addActionListener(e -> {
             setVisible(false);
             App.begin();

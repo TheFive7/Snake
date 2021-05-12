@@ -4,20 +4,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import static game.Game.msg;
 
-public class Serveur extends Thread {
+public class Serveur {
     private static final Scanner input = new Scanner(System.in);
 
     public Serveur() {
         try {
-            int port = 4242;
             int time = 30000;
             msg("Temps d'attente maximum: " + time /1000 + "s");
-            ServerSocket sS = new ServerSocket(port); // Creation du serveur
+            ServerSocket sS = new ServerSocket(4242); // Creation du serveur
             sS.setSoTimeout(time); // Temps d'attente en millis qu'un client se connecte (ici 10 sec)
             Socket s = sS.accept(); // Le seveur accepte le client
             msg("Connexion établie avec Succès !");
@@ -55,7 +57,7 @@ public class Serveur extends Thread {
      */
     public static String getIP(){
         try {
-            InetAddress add = InetAddress.getLocalHost(); // Avoir son adresse IP Locale
+            InetAddress add = InetAddress.getLocalHost(); // Avoir son adresse IP
             return String.valueOf(add);
         } catch (UnknownHostException e){
             e.printStackTrace();

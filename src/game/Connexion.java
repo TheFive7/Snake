@@ -3,7 +3,7 @@ package game;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import java.net.InetAddress;
+
 import java.util.Optional;
 
 import static game.Game.msg;
@@ -11,19 +11,7 @@ import static game.Game.reseauMode;
 import static game.Serveur.getIP;
 
 public class Connexion {
-    public Connexion() {
-        try {
-            InetAddress adrLocale = InetAddress.getLocalHost();
-            System.out.println("Adresse locale = " + adrLocale.getHostAddress());
-            InetAddress adrServeur = InetAddress.getByName("java.sun.com");
-            System.out.println("Adresse Sun = " + adrServeur.getHostAddress());
-            InetAddress[] adrServeurs = InetAddress.getAllByName("www.microsoft.com");
-            System.out.println("Adresses Microsoft : ");
-            for (int i = 0; i < adrServeurs.length; i++) {
-                System.out.println("     " + adrServeurs[i].getHostAddress());
-            }
-        } catch(Exception ignored){}
-
+    public Connexion(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Veux - tu être le Serveur ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.setHeaderText(null);
         alert.showAndWait();

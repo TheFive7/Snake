@@ -166,4 +166,13 @@ public class Menu extends JFrame {
 
 }
 
+/**
+ * Pour mettre un fond sur la JFrame.
+ */
+class ContentPane extends JPanel{
+    private final Image image;
+    public ContentPane(Image fond){super();image=fond;}
+    public void paintComponent(Graphics g){g.drawImage(image,0,0,null);}
+}
+
 

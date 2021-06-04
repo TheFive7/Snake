@@ -5,6 +5,11 @@ ReadMe.txt Snake
 Tuteur : HILDENBRAND Jérome
 Chef de projet : HENNEQUIN Maxime
 
+Membres :
+BARCON Baptiste
+JACQUOT Maxime
+JARQUIS Peter
+KLEIN Guillaume
 
 -------------------------------------------------------------------------------
 V1.0

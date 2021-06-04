@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="game.Menu">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1570" height="512"/>
+    </constraints>
+    <properties>
+      <opaque value="false"/>
+      <preferredSize width="920" height="800"/>
+      <visible value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="2b02" binding="panelBase" layout-manager="GridLayoutManager" row-count="5" column-count="48" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <doubleBuffered value="false"/>
+          <enabled value="true"/>
+          <opaque value="false"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <hspacer id="286cb">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="-1"/>
+                <preferred-size width="50" height="-1"/>
+                <maximum-size width="50" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="2eaca">
+            <constraints>
+              <grid row="0" column="46" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="45" height="-1"/>
+                <preferred-size width="45" height="-1"/>
+                <maximum-size width="45" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="a0e41">
+            <constraints>
+              <grid row="0" column="47" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <grid id="77802" binding="vueJeu" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="48" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <vspacer id="55e35">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="a73eb">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="7463f" class="javax.swing.JLabel" binding="labelVue">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <opaque value="false"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <vspacer id="dddc4">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <vspacer id="f71a3">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="100"/>
+                    <preferred-size width="100" height="100"/>
+                    <maximum-size width="100" height="100"/>
+                  </grid>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <hspacer id="bb160">
+            <constraints>
+              <grid row="0" column="26" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+                <preferred-size width="10" height="-1"/>
+                <maximum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <hspacer id="6db08">
+            <constraints>
+              <grid row="2" column="27" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+          <vspacer id="c0177">
+            <constraints>
+              <grid row="1" column="25" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <vspacer id="31a07">
+            <constraints>
+              <grid row="3" column="25" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="8993b" class="javax.swing.JCheckBox" binding="checkBox">
+            <constraints>
+              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="7" anchor="0" fill="0" indent="2" use-parent-layout="false">
+                <preferred-size width="161" height="21"/>
+              </grid>
+            </constraints>
+            <properties>
+              <borderPainted value="false"/>
+              <horizontalTextPosition value="11"/>
+              <opaque value="false"/>
+              <text value="IA*"/>
+            </properties>
+          </component>
+          <component id="e1a94" class="javax.swing.JCheckBox" binding="chkReseau">
+            <constraints>
+              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+              <text value="Reseau LAN"/>
+            </properties>
+          </component>
+          <component id="427bc" class="javax.swing.JComboBox" binding="comboBoxVitesse">
+            <constraints>
+              <grid row="0" column="14" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <model>
+                <item value="TROP LENT"/>
+                <item value="LENT"/>
+                <item value="NORMAL"/>
+                <item value="RAPIDE"/>
+                <item value="HARDCORE"/>
+              </model>
+              <opaque value="false"/>
+            </properties>
+          </component>
+          <component id="6e0a5" class="javax.swing.JComboBox" binding="comboBoxCouleur">
+            <constraints>
+              <grid row="0" column="23" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+              <model>
+                <item value="ROUGE"/>
+                <item value="BLEU"/>
+                <item value="VERT"/>
+                <item value="ROSE"/>
+                <item value="ORANGE"/>
+                <item value="BLANC"/>
+              </model>
+              <opaque value="false"/>
+            </properties>
+          </component>
+          <component id="50c51" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="13" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Vitesse"/>
+            </properties>
+          </component>
+          <component id="cf89b" class="javax.swing.JLabel" binding="labelRochers">
+            <constraints>
+              <grid row="0" column="29" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Nombre de Rochers : 0"/>
+            </properties>
+          </component>
+          <component id="6ed4a" class="javax.swing.JSlider" binding="slider">
+            <constraints>
+              <grid row="0" column="31" row-span="1" col-span="10" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="154" height="24"/>
+              </grid>
+            </constraints>
+            <properties>
+              <opaque value="false"/>
+            </properties>
+          </component>
+          <hspacer id="ae019">
+            <constraints>
+              <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+                <preferred-size width="10" height="-1"/>
+                <maximum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+          <component id="e1821" class="javax.swing.JLabel" binding="Couleur">
+            <constraints>
+              <grid row="0" column="22" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="51" height="16"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Couleur"/>
+            </properties>
+          </component>
+          <hspacer id="8bf8">
+            <constraints>
+              <grid row="0" column="19" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="10" height="-1"/>
+                <preferred-size width="10" height="-1"/>
+                <maximum-size width="10" height="-1"/>
+              </grid>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
+      <component id="e1578" class="javax.swing.JButton" binding="play">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="3" vsize-policy="1" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="220" height="90"/>
+            <preferred-size width="220" height="90"/>
+            <maximum-size width="220" height="90"/>
+          </grid>
+        </constraints>
+        <properties>
+          <alignmentY value="1.0"/>
+          <borderPainted value="true"/>
+          <contentAreaFilled value="true"/>
+          <focusPainted value="true"/>
+          <iconTextGap value="4"/>
+          <inheritsPopupMenu value="false"/>
+          <margin top="0" left="0" bottom="0" right="0"/>
+          <text value="PLAY"/>
+        </properties>
+      </component>
+      <vspacer id="18b6f">
+        <constraints>
+          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="10" height="35"/>
+            <preferred-size width="10" height="35"/>
+            <maximum-size width="10" height="35"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <vspacer id="71537">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="55"/>
+            <preferred-size width="-1" height="55"/>
+            <maximum-size width="-1" height="55"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <vspacer id="7e89f">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="3ef48">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="66320" class="javax.swing.JCheckBox" binding="checkBoxSon">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="35" height="35"/>
+            <preferred-size width="35" height="35"/>
+            <maximum-size width="35" height="35"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <hspacer id="5745b">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="10" height="-1"/>
+            <preferred-size width="10" height="-1"/>
+            <maximum-size width="10" height="-1"/>
+          </grid>
+        </constraints>
+      </hspacer>
+    </children>
+  </grid>
+</form>

@@ -77,3 +77,13 @@ V3.3
 Nouveau menu stylé
 Code revu sur quelques points
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+V3.4
+
+Passage à 60fps
+Vitesses ajoutées
+Bugs et latences réglées
+Directions remaniées
+Classes remaniées
+Colisions revues
+-------------------------------------------------------------------------------

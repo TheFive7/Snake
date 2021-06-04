@@ -29,9 +29,11 @@ public class Controller {
             }
             if (key == KeyCode.LEFT || key == KeyCode.Q){
                 snake.avance(GAUCHE,DROITE);
+                snake.setAngle(snake.getAngle() - Math.PI/10);
             }
             if (key == KeyCode.RIGHT || key == KeyCode.D){
                 snake.avance(DROITE,GAUCHE);
+                snake.setAngle(snake.getAngle() + Math.PI/10);
             }
             if (key == KeyCode.SPACE) {
                 if (gameOver) {
@@ -62,12 +64,11 @@ public class Controller {
         });
 
         // Debug:
-/*        scene.setOnMouseClicked(e -> {
-            msg("x:"+snake.getTete().x+" y:"+snake.getTete().y);
-            msg("x: "+e.getSceneX()/TAILLE_CARRE+" y: "+e.getSceneY()/TAILLE_CARRE);
+        scene.setOnMouseClicked(e -> {
+            snake.addTaille(20);
         });
 
-        scene.setOnMouseDragged(e -> {
+/*        scene.setOnMouseDragged(e -> {
             double x = e.getSceneX()/TAILLE_CARRE;
             double y = e.getSceneY()/TAILLE_CARRE;
 

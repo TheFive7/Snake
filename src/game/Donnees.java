@@ -12,17 +12,11 @@ public class Donnees {
 
     // Snake
     public static final double RATIO = 2;
-    public static final double LARGEURSERPENT = TAILLE_CARRE * RATIO;
+    public static final double LARGEURSERPENT = TAILLE_CARRE * 2;
     public static final double HAUTEURSERPENT = LARGEURSERPENT * 0.8;
-    public static final double LIMITE = LARGEUR - HAUTEURSERPENT;
+    public static final double LIMITE = LARGEUR - LARGEURSERPENT;
 
-    // Stage
-    public static final int POSX = 500;
-    public static final int POSY = 100;
-    public static final int HAUTEURSTAGE = 865;
-    public static final double TRANSLATIONY = 15;
-
-    // Direction
+    // Controles
     public static final int HAUT = 0;
     public static final int BAS = 1;
     public static final int GAUCHE = 2;

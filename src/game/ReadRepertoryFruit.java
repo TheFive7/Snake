@@ -9,7 +9,7 @@ public class ReadRepertoryFruit {
 
     public ReadRepertoryFruit(){
 
-        String chemin = "src/img";
+        String chemin = "src/imgFruit";
 
         // Lecture du nombre d'images dans le repertoire
         int compteur = 0;

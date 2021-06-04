@@ -1,7 +1,5 @@
 package game;
 
-import javafx.scene.paint.Color;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -23,22 +21,24 @@ public class Menu extends JFrame {
     private JLabel labelVue;
     private JLabel labelRochers;
     private JLabel Couleur;
+    private JCheckBox checkBoxSon;
     private String cheminGif = "snakeRouge";
 
     public Menu() {
         setTitle("SNAKE");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         // Icone
         try{
-            ImageIcon icon = new ImageIcon("src/iconSnake.png");
+            ImageIcon icon = new ImageIcon("src/img/iconSnake.png");
             setIconImage(icon.getImage());
         } catch (Exception e){msg("Icone Manquante.");}
 
 
         // Image de fond
         try {
-            Image fond = Toolkit.getDefaultToolkit().getImage("src/fond.png");
+            Image fond = Toolkit.getDefaultToolkit().getImage("src/img/fond.png");
             MediaTracker mt = new MediaTracker(this);
             mt.addImage(fond,0);
             mt.waitForAll();
@@ -51,16 +51,26 @@ public class Menu extends JFrame {
 
         add(panel1);
 
-
         // Play
         invisible(play);
         play.addActionListener(e -> {
             setVisible(false);
             App.begin();
-            System.exit(0);
         });
 
         // IA
+        checkBox.setSize(new Dimension(20,20));
+        ImageIcon iconCheckBoxIABase = new ImageIcon(new ImageIcon("src/img/iaNon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        checkBox.setIcon(iconCheckBoxIABase);
+        checkBox.addActionListener(e -> {
+            if (versusMode) {
+                ImageIcon iconCheckBoxIAOui = new ImageIcon(new ImageIcon("src/img/iaOui.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                checkBox.setIcon(iconCheckBoxIAOui);
+            }else{
+                ImageIcon iconCheckBoxIANon = new ImageIcon(new ImageIcon("src/img/iaNon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                checkBox.setIcon(iconCheckBoxIANon);
+            }
+        });
         checkBox.addChangeListener(e -> versusMode = !versusMode);
 
         // Rochers
@@ -78,32 +88,32 @@ public class Menu extends JFrame {
                 String color = (String) e1.getItem();
                 switch (color) {
                     case "ROUGE" -> {
-                        couleurSnake = Color.RED;
+                        couleurSnake = javafx.scene.paint.Color.RED;
                         cheminGif = "snakeRouge";
                         gif(labelVue,cheminGif);
                     }
                     case "BLEU" -> {
-                        couleurSnake = Color.BLUE;
+                        couleurSnake = javafx.scene.paint.Color.BLUE;
                         cheminGif = "snakeBleu";
                         gif(labelVue,cheminGif);
                     }
                     case "VERT" -> {
-                        couleurSnake = Color.GREEN;
+                        couleurSnake = javafx.scene.paint.Color.GREEN;
                         cheminGif = "snakeVert";
                         gif(labelVue,cheminGif);
                     }
                     case "ROSE" -> {
-                        couleurSnake = Color.PINK;
+                        couleurSnake = javafx.scene.paint.Color.PINK;
                         cheminGif = "snakeRose";
                         gif(labelVue,cheminGif);
                     }
                     case "ORANGE" -> {
-                        couleurSnake = Color.ORANGE;
+                        couleurSnake = javafx.scene.paint.Color.ORANGE;
                         cheminGif = "snakeOrange";
                         gif(labelVue,cheminGif);
                     }
                     case "BLANC" -> {
-                        couleurSnake = Color.WHITE;
+                        couleurSnake = javafx.scene.paint.Color.WHITE;
                         cheminGif = "snakeBlanc";
                         gif(labelVue,cheminGif);
                     }
@@ -120,9 +130,11 @@ public class Menu extends JFrame {
             if(e1.getStateChange() == ItemEvent.SELECTED) {
                 String color = (String) e1.getItem();
                 switch (color) {
-                    case "TRES LENT" -> VITESSE = 0.25;
-                    case "LENT" -> VITESSE = 0.5;
-                    case "NORMAL" -> VITESSE = 1;
+                    case "TROP LENT" -> VITESSE = 1;
+                    case "LENT" -> VITESSE = 2.5;
+                    case "NORMAL" -> VITESSE = 5;
+                    case "RAPIDE" -> VITESSE = 8;
+                    case "HARDCORE" -> VITESSE = 10;
                 }
             }
         };
@@ -130,7 +142,34 @@ public class Menu extends JFrame {
         comboBoxVitesse.addItemListener(comboItemListenerVitesse);
 
         // Reseau
+        chkReseau.setSize(new Dimension(20,20));
+        ImageIcon iconCheckBoxReseauBase = new ImageIcon(new ImageIcon("src/img/croix.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        chkReseau.setIcon(iconCheckBoxReseauBase);
+        chkReseau.addActionListener(e -> {
+            if (reseauMode) {
+                ImageIcon iconCheckBoxReseauOui = new ImageIcon(new ImageIcon("src/img/valide.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                chkReseau.setIcon(iconCheckBoxReseauOui);
+            }else{
+                ImageIcon iconCheckBoxReseauNon = new ImageIcon(new ImageIcon("src/img/croix.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+                chkReseau.setIcon(iconCheckBoxReseauNon);
+            }
+        });
         chkReseau.addChangeListener(e -> reseauMode = !reseauMode);
+
+        // CheckBox Son
+        checkBoxSon.setSize(new Dimension(30,30));
+        ImageIcon iconCheckBoxSonBase = new ImageIcon(new ImageIcon("src/img/son.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        checkBoxSon.setIcon(iconCheckBoxSonBase);
+        checkBoxSon.addActionListener(e -> {
+            if (sonMode) {
+                ImageIcon iconCheckBoxSonOui = new ImageIcon(new ImageIcon("src/img/son.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+                checkBoxSon.setIcon(iconCheckBoxSonOui);
+            }else{
+                ImageIcon iconCheckBoxSonNon = new ImageIcon(new ImageIcon("src/img/sonCoupe.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+                checkBoxSon.setIcon(iconCheckBoxSonNon);
+            }
+        });
+        checkBoxSon.addChangeListener(e -> sonMode = !sonMode);
 
         setVisible(true);
     }

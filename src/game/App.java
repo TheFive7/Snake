@@ -9,20 +9,43 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import static game.Donnees.*;
-import static game.Food.foodGenerator;
 import static game.Game.*;
 import static game.Options.menuBarre;
 
+/* TODO
+    o Fond (glace, mer, plaine, foret, montagne, espace)
+    o Directions
+    o Menu
+    o LAN
+    o Sons
+    x Collisions
+    o Rochers
+    o Bombes
+*/
+
 public final class App extends Application {
+    public int POSX = 500;
+    public int POSY = 100;
+    public int HAUTEURSTAGE = 865;
+    public double TRANSLATIONY = 15;
 
     public static StackPane root = new StackPane();
     public static Scene scene = new Scene(root);
     public static Canvas canvas = new Canvas(LARGEUR, HAUTEUR);
+    public static Menu menu;
+    public static boolean isLaunch = false;
 
     @Override
     public void start(final Stage primaryStage) {
 
-        if(reseauMode){new Connexion();}else{new Options();}
+        // Passage à 60fps
+        // Vitesses ajoutées
+        // Bugs et latences réglées
+        // Directions remaniées
+        // Classes remaniées
+        // Colisions revues
+
+        if(reseauMode){new Connexion();}else{new Options(primaryStage);}
 
         // Calibrage
         primaryStage.setX(POSX);primaryStage.setY(POSY);
@@ -30,43 +53,50 @@ public final class App extends Application {
         canvas.setTranslateY(TRANSLATIONY);
 
         // Stage primaire
+        primaryStage.setOnCloseRequest(evt -> System.exit(0));
         primaryStage.setScene(scene);
         primaryStage.setTitle("~ SNAKE ~");
-        try {primaryStage.getIcons().add(new Image("iconSnake.PNG"));} catch(Exception e){msg("Icone non répertoriée");}
-        primaryStage.setResizable(true);
-        root.getChildren().addAll(menuBarre,canvas);
+        try {primaryStage.getIcons().add(new Image("file:src/img/iconSnake.PNG"));} catch(Exception e){msg("Icone non répertoriée");}
+        primaryStage.setResizable(false);
+        root.getChildren().addAll(menuBarre, canvas);
         primaryStage.show();
 
-        init();
+        initial();
     }
 
-    public void init(){
-        snake = new Snake(LARGEURSERPENT * 0.8, couleurSnake, couleurSnake);
-        snake1 = new Snake(LARGEURSERPENT * 0.8, Color.BLUE, Color.BLUE);
+    public static void initial(){
+
+        snake = new Snake(25, couleurSnake, couleurSnake);
+        snake1 = new Snake(25, Color.BLUE, Color.BLUE);
 
         // Place le Snake
-        snake.addTaillePosition(LIGNE >> 1, COLONNE >> 1);
-        if (versusMode){snake1.addTaillePosition(LIGNE / 3, COLONNE / 3);}
+        snake.addTaillePosition(LARGEUR >> 1, LARGEUR >> 1);
+        if (versusMode){snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);}
 
-        // Nourriture
+        // Repertoire images Nourriture
         new ReadRepertoryFruit();
 
         // Gestion des touches
         new Controller();
 
-        // Generation de nourriture
-        foodGenerator();
+        // Items générés de base
+        food.newFruit();
+        bombe.newBombe();
 
         // Lancement
+        isLaunch=true;
+        if(sonMode){StdAudio.loop("src/sons/play.wav");}
         Game.run();
     }
 
 
-    public static void main(String[] args) {
-        new Menu();
+    public static void main(String[] args) {menu = new Menu();}
+
+    public static void begin(){
+        try {
+            launch();
+        } catch (Exception e) {
+            System.exit(0);
+        }
     }
-
-    public static void begin(){launch();}
 }
-
-

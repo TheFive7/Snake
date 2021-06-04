@@ -3,27 +3,32 @@ package game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.Controller.isTimelinePause;
+import static game.Controller.timeline;
 import static game.App.canvas;
-import static game.Controller.*;
 import static game.Donnees.*;
 import static game.Draw.*;
-import static game.Draw.drawScore;
-import static game.Food.drawFruit;
-import static game.ReadRepertoryFruit.listFruit;
 
 public class Game {
 
+    // Item
+    static Nourriture food = new Nourriture();
+    static Bombe bombe = new Bombe();
+
     /* Paramètres à changer */
+    public static boolean sonMode = true;
     public static boolean reseauMode = false;
     public static boolean versusMode = false;
     public static boolean collisionRocher = true;
     public static int nbRocher = 0;
-    public static int nbFramePerSecond = 60;
-    public static double VITESSE = 1;
+    public static int nbFramePerSecond = 1000/60;
+    public static double VITESSE = 5;
+    public static boolean modeAngle = true;
 
     public static GraphicsContext gc = canvas.getGraphicsContext2D();
     public static List<Point2D.Double> listRocher = new ArrayList<>();
@@ -31,60 +36,52 @@ public class Game {
     public static int nbParties = 0;
     public static boolean obstacle = false;
     public static Color couleurSnake = Color.RED;
+    public static int time = 0;
 
     public static Snake snake;
     public static Snake snake1;
 
     public static void run() {
+
         // 1P
-        if (!versusMode) {
-            snake.isGameOver();
-            if (snake.getGameOver()) {
-                gameOver = true;
+        if (snake.getGameOver()){gameOver = true;}
+        if (gameOver) {
+            gc.setFill(Color.BLACK);
+            gc.setFont(new Font(50));
+            gc.fillText("Game Over !", (LARGEUR >> 1) - 120.0, HAUTEUR >> 1);
+            if (snake.getDirection() == SPACE) {
+                reset();
+                new Thread().start();
             }
-            if (gameOver) {
-                gc.setFill(Color.BLACK);
-                gc.setFont(new Font(50));
-                gc.fillText("Game Over !", (LARGEUR >> 1) - 120.0, HAUTEUR >> 1);
-                if (snake.getDirection() == SPACE) {
-                    reset();
-                    new Thread().start();
-                }
-                return;
-            }
+            return;
         }
+        if (!versusMode) {snake.isGameOver();}
 
         // 2P
         if (versusMode){
             snake.isGameOver(snake1);
-            if (snake.getGameOver()){gameOver = true;}
-            if (gameOver) {
-                gc.setFill(Color.BLACK);
-                gc.setFont(new Font(50));
-                gc.fillText("Game Over !", (LARGEUR >> 1) - 120.0, HAUTEUR >> 1);
-                if (snake.getDirection() == SPACE) {
-                    reset();
-                    new Thread().start();
-                }
-                return;
-            }
-
             snake1.isGameOver(snake);
             if (snake1.getGameOver()){
                 snake1.resetSnake();
-                snake1.addTaillePosition(LIGNE / 3, COLONNE / 3);
+                snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);
                 snake1.drawSnake(gc);
             }
         }
 
         // Graphismes
-        drawBackGround(gc);
-        drawSpawn(gc);
+        drawAll(gc);
         genereRocher();
-        drawFruit(gc, listFruit[Food.rand]);
+
+        food.draw(food.getImg());
+
         snake.drawSnake(gc);
         if (versusMode){snake1.drawSnake(gc);}
-        drawScore(gc);
+
+        // Bombe
+        if(time%600==0){ bombe.genere(); }
+        bombe.draw(bombe.getImg());
+        bombe.affecte(snake);
+        if(versusMode){bombe.affecte(snake1);}
 
         // IA
         if (versusMode){snake1.iaBasique();}
@@ -98,9 +95,11 @@ public class Game {
         if (versusMode){snake1.direction();}
 
         // Savoir si le Snake a mangé la nourriture
-        snake.mange();
-        if (versusMode){snake1.mange();}
+        food.affecte(snake);
+        if (versusMode){food.affecte(snake1);}
 
+        time++;
+        if (time == 1){snake.addTaille(5);if (versusMode){snake1.addTaille(5);}}
     }
 
 
@@ -139,19 +138,19 @@ public class Game {
      * Reset les paramètres.
      */
     public static void reset() {
+        time = 0;
         obstacle = false;
         gameOver = false;
-        snake.resetSnake();snake.addTaillePosition(LIGNE >> 1, COLONNE >> 1);
-        if(versusMode){snake1.resetSnake();snake1.addTaillePosition(LIGNE / 3, COLONNE / 3);}
-        drawBackGround(gc);
-        drawSpawn(gc);
+        snake.resetSnake();snake.addTaillePosition(LARGEUR >> 1, LARGEUR >> 1);
+        if(versusMode){snake1.resetSnake();snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);}
+
+        drawAll(gc);
         snake.drawSnake(gc);
         if(versusMode){snake1.drawSnake(gc);}
-        drawScore(gc);
-        drawFruit(gc, listFruit[Food.rand]);
+
+        food.newFruit();
 
         isTimelinePause = true;
-        drawEtat();
         timeline.pause();
     }
 
@@ -168,7 +167,7 @@ public class Game {
         if (x1 > x2){n=x2;x2=x1;x1=n;}
         if (y1 > y2){n=y2;y2=y1;y1=n;}
         boolean bool = false;
-        if ((x2 - x1 < RATIO) && (y2 - y1 < RATIO)){
+        if ((x2 - x1 <= HAUTEURSERPENT) && (y2 - y1 <= HAUTEURSERPENT)){
             bool = true;
         }
         return bool;
@@ -181,5 +180,4 @@ public class Game {
     public static void msg(String txt){
         System.out.println(txt);
     }
-
 }

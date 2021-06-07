@@ -48,8 +48,8 @@ public class Connexion {
             Optional<String> result = dialogue.showAndWait();
 
             result.ifPresent(guestString -> {
-                msg("Tentative de connexion au Serveur : " + result);
-                new Client(String.valueOf(result));
+                msg("Tentative de connexion au Serveur : " + result.get());
+                new Client(result.get());
             });
         } else {
             reseauMode = false;

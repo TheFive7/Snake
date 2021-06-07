@@ -17,7 +17,7 @@ public class Serveur extends Thread {
 
     public Serveur() {
         try {
-            int port = 4242;
+            int port = 4646;
             int time = 30000;
             msg("Temps d'attente maximum: " + time / 1000 + "s");
             ServerSocket sS = new ServerSocket(port); // Creation du serveur
@@ -50,7 +50,6 @@ public class Serveur extends Thread {
             msg("Connexion échouée.");
             System.exit(0);
         }
-
     }
 
     /**

@@ -82,6 +82,8 @@ public class Controller {
         });
 
         // Debug:
-        scene.setOnMouseClicked(e -> snake.addTaille(20));
+        scene.setOnMouseClicked(e -> {
+            snake.addTaille((int) ((1/snake.getVitesse())*100));
+        });
     }
 }

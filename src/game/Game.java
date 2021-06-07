@@ -42,6 +42,8 @@ public class Game {
     public static Snake snake;
     public static Snake snake1;
 
+    public static int curseur = 300;
+
     // Item
     static Nourriture food = new Nourriture();
     static Bombe bombe = new Bombe("longueur");
@@ -71,16 +73,21 @@ public class Game {
             snake.isGameOver();
         }
 
+        if (snake1.getGameOver()){curseur --;}
         // 2P
         if (versusMode) {
             snake.isGameOver(snake1);
             snake1.isGameOver(snake);
             if (snake1.getGameOver()) {
-                snake1.resetSnake();
-                snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);
-                snake1.addTaille(5);
-                snake1.drawSnake(gc);
+                versusMode = false;
             }
+        }
+        if (curseur == 0){
+            versusMode = true;
+            snake1.resetSnake();
+            snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);
+            snake1.addTaille(5);
+            curseur = 300;
         }
 
         // Graphismes

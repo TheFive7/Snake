@@ -14,7 +14,7 @@ public class Client {
 
     public Client(String adresseIP) {
         try {
-            int port = 4242;
+            int port = 4646;
             Socket s = new Socket(adresseIP, port);  // Socket avec le port du serveur et son IP
             System.out.println("Connexion établie avec Succès !");
 

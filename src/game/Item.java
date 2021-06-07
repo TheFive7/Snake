@@ -128,7 +128,7 @@ class Nourriture extends Item {
                     StdAudio.play("src/sons/sonMange.wav");
                 }
             }
-            snake.addTaille(2);
+            snake.addTaille((int) ((1/snake.getVitesse())*50));
             snake.setScore(snake.getScore() + 100);
             newFruit();
         }
@@ -167,9 +167,7 @@ class Bombe extends Item {
      */
     public boolean affecte(Snake snake, int t) {
         if (voisinage(getPosition().getX(), getPosition().getY(), snake.getTete().getX(), snake.getTete().getY())) {
-            if (sonMode) {
-                StdAudio.play("src/sons/sonBombe.wav");
-            }
+            if (sonMode) {StdAudio.play("src/sons/sonBombe.wav");}
             setPosition(900, 900);
             switch (getEffet()) {
                 case "longueur" -> {
@@ -179,7 +177,7 @@ class Bombe extends Item {
                         snake.setGameOver(true);
                     }
                 }
-                case "vitesse" -> snake.setVitesse(10);
+                case "vitesse" -> snake.setVitesse(vitesse_initiale * 2);
                 case "controle" -> inverseControls = true;
                 case "mort" -> snake.setGameOver(true);
             }

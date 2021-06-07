@@ -220,7 +220,8 @@ public class Snake {
         if (collisionRocher) {
             isRocherTouch();
         }
-        for (int i = 15; i < getSize(); i++) {
+        // Selon la vitesse, la distance de detection du corps est plus ou moins grande
+        for (int i = (int) ((1/vitesse)*100); i < getSize(); i++) {
             if (voisinage(getTete().getX(), getTete().getY(), getCorps(i).getX(), getCorps(i).getY())) {
                 setGameOver(true);
                 break;
@@ -233,9 +234,25 @@ public class Snake {
      */
     public void isGameOver(Snake snake) {
         isGameOver();
-        for (int i = 15; i < snake.getSize(); i++) {
-            if (voisinage(snake.getTete().getX(), snake.getTete().getY(), snake.getCorps(i).getX(), snake.getCorps(i).getY())) {
+        for (int i = (int) ((1/vitesse)*100); i < getSize(); i++) {
+            if (voisinage(getTete().getX(), getTete().getY(), getCorps(i).getX(), getCorps(i).getY())) {
+                setGameOver(true);
+                break;
+            }
+        }
+
+        for (int i = 0; i < getSize(); i++){
+            // IA sur joueur
+            if (voisinage(snake.getTete().getX(), snake.getTete().getY(), getCorps(i).getX(), getCorps(i).getY())) {
                 snake.setGameOver(true);
+                break;
+            }
+        }
+
+        for (int i = 0; i < snake.getSize();i++){
+            // Joueur sur IA
+            if (voisinage(getTete().getX(), getTete().getY(), snake.getCorps(i).getX(), snake.getCorps(i).getY())) {
+                setGameOver(true);
                 break;
             }
         }

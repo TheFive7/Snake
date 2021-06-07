@@ -1,5 +1,7 @@
 package game;
 
+import game.menu.Menu;
+import game.menu.Options;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,7 +14,7 @@ import game.reseau.Connexion;
 import static game.Donnees.HAUTEUR;
 import static game.Donnees.LARGEUR;
 import static game.Game.*;
-import static game.Options.menuBarre;
+import static game.menu.Options.menuBarre;
 import static game.ReadRepertory.listMap;
 
 /* TODO
@@ -28,13 +30,11 @@ import static game.ReadRepertory.listMap;
     o IA
 */
 
-// V_3.5
-// Ajout de fonds
-// Ajout des crédits et des regles
-// Directions angles finies avec rotation
-// Fond du menu remanié
-// Nouvelles bombes ajoutées
-// Nouvelle police
+// V_3.6
+// Collisions avec IA
+// Spawner de l'IA
+// Corrections dans le menu
+// Debut du reseau
 
 public final class App extends Application {
     public static Image backgroundImage;

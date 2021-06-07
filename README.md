@@ -1,6 +1,16 @@
 # Snake
 
-ReadMe.txt Snake  HENNEQUIN Maxime
+ReadMe.txt Snake
+
+Tuteur : HILDENBRAND Jérome
+Chef de projet : HENNEQUIN Maxime
+
+Membres :
+BARCON Baptiste
+JACQUOT Maxime
+JARQUIS Peter
+KLEIN Guillaume
+
 -------------------------------------------------------------------------------
 V1.0
 
@@ -15,13 +25,13 @@ Deplacements améliorés, on ne peut plus s'auto tuer.
 Code commenté et remanié
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-V2.1
+V2.0
 
 Score ajouté.
 Possibilité de rejouer une partie après le Game Over.
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-V2.2
+V2.1
 
 Fluidité augmentée
 Graphismes améliorés
@@ -32,14 +42,14 @@ Divers paramètres ajoutés pour une personnalisation simple
 Divers bugs réglés.
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-V2.3
+V2.2
 
 Constructeur Snake créé.
 Ajout d'un mode 1v1 avec une IA intégrée.
 Divers réglages.
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
-V2.4
+V2.3
 
 Ajout d'un menu.
 De nouveaux graphismes.

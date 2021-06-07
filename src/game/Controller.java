@@ -6,34 +6,52 @@ import javafx.animation.Timeline;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
 
-import static game.App.*;
+import static game.App.scene;
 import static game.Donnees.*;
 import static game.Draw.drawEtat;
 import static game.Game.*;
+import static game.Item.inverseControls;
 
 
 public class Controller {
-    public static Timeline timeline = new Timeline(new KeyFrame(Duration.millis(nbFramePerSecond), e -> run()));
     public static boolean isTimelineActive = false;
     public static boolean isTimelinePause = true;
+    public static Timeline timeline = new Timeline(new KeyFrame(Duration.millis(nbFramePerSecond), e -> run()));
 
-    public Controller(){
+    public Controller() {
         // Gestion des touches en jeu
         scene.setOnKeyPressed(event -> {
+
             KeyCode key = event.getCode();
-            if (key == KeyCode.UP || key == KeyCode.Z){
-                snake.avance(HAUT,BAS);
+            if (key == KeyCode.UP || key == KeyCode.Z) {
+                if (!inverseControls) {
+                    snake.avance(HAUT, BAS);
+                } else {
+                    snake.avance(BAS, HAUT);
+                }
             }
-            if (key == KeyCode.DOWN || key == KeyCode.S){
-                snake.avance(BAS,HAUT);
+            if (key == KeyCode.DOWN || key == KeyCode.S) {
+                if (!inverseControls) {
+                    snake.avance(BAS, HAUT);
+                } else {
+                    snake.avance(HAUT, BAS);
+                }
             }
-            if (key == KeyCode.LEFT || key == KeyCode.Q){
-                snake.avance(GAUCHE,DROITE);
-                snake.setAngle(snake.getAngle() - Math.PI/10);
+            if (key == KeyCode.LEFT || key == KeyCode.Q) {
+                if (!inverseControls) {
+                    snake.avance(GAUCHE, DROITE);
+                } else {
+                    snake.avance(DROITE, GAUCHE);
+                }
+                snake.setAngle(snake.getAngle() - Math.PI / 10);
             }
-            if (key == KeyCode.RIGHT || key == KeyCode.D){
-                snake.avance(DROITE,GAUCHE);
-                snake.setAngle(snake.getAngle() + Math.PI/10);
+            if (key == KeyCode.RIGHT || key == KeyCode.D) {
+                if (!inverseControls) {
+                    snake.avance(DROITE, GAUCHE);
+                } else {
+                    snake.avance(GAUCHE, DROITE);
+                }
+                snake.setAngle(snake.getAngle() + Math.PI / 10);
             }
             if (key == KeyCode.SPACE) {
                 if (gameOver) {
@@ -64,16 +82,6 @@ public class Controller {
         });
 
         // Debug:
-        scene.setOnMouseClicked(e -> {
-            snake.addTaille(20);
-        });
-
-/*        scene.setOnMouseDragged(e -> {
-            double x = e.getSceneX()/TAILLE_CARRE;
-            double y = e.getSceneY()/TAILLE_CARRE;
-
-            snake.getTete().x = x;
-            snake.getTete().y = y;
-        });*/
+        scene.setOnMouseClicked(e -> snake.addTaille(20));
     }
 }

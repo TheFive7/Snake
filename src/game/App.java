@@ -7,48 +7,109 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import game.reseau.Connexion;
 
-import static game.Donnees.*;
+import static game.Donnees.HAUTEUR;
+import static game.Donnees.LARGEUR;
 import static game.Game.*;
 import static game.Options.menuBarre;
+import static game.ReadRepertory.listMap;
 
 /* TODO
-    o Fond (glace, mer, plaine, foret, montagne, espace)
-    o Directions
-    o Menu
+    x Fond (glace, mer, plaine, foret, montagne, espace)
+    x Directions
+    o Menu replay
+    x Menu Fond
     o LAN
     o Sons
     x Collisions
     o Rochers
-    o Bombes
+    x Bombes
+    o IA
 */
 
+// V_3.5
+// Ajout de fonds
+// Ajout des crédits et des regles
+// Directions angles finies avec rotation
+// Fond du menu remanié
+// Nouvelles bombes ajoutées
+// Nouvelle police
+
 public final class App extends Application {
+    public static Image backgroundImage;
+    public static StackPane root = new StackPane();
+    public static Scene scene = new Scene(root);
+    public static Canvas canvas = new Canvas(LARGEUR, HAUTEUR);
+    public static Menu menu;
     public int POSX = 500;
     public int POSY = 100;
     public int HAUTEURSTAGE = 865;
     public double TRANSLATIONY = 15;
 
-    public static StackPane root = new StackPane();
-    public static Scene scene = new Scene(root);
-    public static Canvas canvas = new Canvas(LARGEUR, HAUTEUR);
-    public static Menu menu;
-    public static boolean isLaunch = false;
+    /**
+     * Initialise le stage primaire.
+     */
+    public static void initial() {
+
+        snake = new Snake(25, couleurSnake, couleurSnake);
+        snake1 = new Snake(25, Color.BLUE, Color.BLUE);
+
+        // Place le Snake
+        snake.addTaillePosition(LARGEUR >> 1, LARGEUR >> 1);
+        if (versusMode) {
+            snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);
+        }
+        initVitesse(vitesse_initiale);
+
+        // Repertoire images Nourriture et Map
+        new ReadRepertory();
+
+        // Gestion des touches
+        new Controller();
+
+        // Fond Map
+        int r = (int) (Math.random() * listMap.length);
+        backgroundImage = new Image("file:src/img/imgMap/" + listMap[r], LARGEUR, 865, false, true);
+
+        // Items générés de base
+        food.newFruit();
+        bombe.newBombe();
+
+        // Lancement
+        if (sonMode) {
+            StdAudio.loop("src/sons/play.wav");
+        }
+        Game.run();
+    }
+
+    public static void main(String[] args) {
+        menu = new Menu();
+    }
+
+    /**
+     * Start l'application.
+     */
+    public static void begin() {
+        try {
+            launch();
+        } catch (Exception e) {
+            System.exit(0);
+        }
+    }
 
     @Override
     public void start(final Stage primaryStage) {
 
-        // Passage à 60fps
-        // Vitesses ajoutées
-        // Bugs et latences réglées
-        // Directions remaniées
-        // Classes remaniées
-        // Colisions revues
-
-        if(reseauMode){new Connexion();}else{new Options(primaryStage);}
+        if (reseauMode) {
+            new Connexion();
+        } else {
+            new Options(primaryStage);
+        }
 
         // Calibrage
-        primaryStage.setX(POSX);primaryStage.setY(POSY);
+        primaryStage.setX(POSX);
+        primaryStage.setY(POSY);
         primaryStage.setHeight(HAUTEURSTAGE);
         canvas.setTranslateY(TRANSLATIONY);
 
@@ -56,47 +117,15 @@ public final class App extends Application {
         primaryStage.setOnCloseRequest(evt -> System.exit(0));
         primaryStage.setScene(scene);
         primaryStage.setTitle("~ SNAKE ~");
-        try {primaryStage.getIcons().add(new Image("file:src/img/iconSnake.PNG"));} catch(Exception e){msg("Icone non répertoriée");}
+        try {
+            primaryStage.getIcons().add(new Image("file:src/img/iconSnake.PNG"));
+        } catch (Exception e) {
+            msg("Icone non répertoriée");
+        }
         primaryStage.setResizable(false);
         root.getChildren().addAll(menuBarre, canvas);
         primaryStage.show();
 
         initial();
-    }
-
-    public static void initial(){
-
-        snake = new Snake(25, couleurSnake, couleurSnake);
-        snake1 = new Snake(25, Color.BLUE, Color.BLUE);
-
-        // Place le Snake
-        snake.addTaillePosition(LARGEUR >> 1, LARGEUR >> 1);
-        if (versusMode){snake1.addTaillePosition(LARGEUR >> 2, LARGEUR >> 1);}
-
-        // Repertoire images Nourriture
-        new ReadRepertoryFruit();
-
-        // Gestion des touches
-        new Controller();
-
-        // Items générés de base
-        food.newFruit();
-        bombe.newBombe();
-
-        // Lancement
-        isLaunch=true;
-        if(sonMode){StdAudio.loop("src/sons/play.wav");}
-        Game.run();
-    }
-
-
-    public static void main(String[] args) {menu = new Menu();}
-
-    public static void begin(){
-        try {
-            launch();
-        } catch (Exception e) {
-            System.exit(0);
-        }
     }
 }

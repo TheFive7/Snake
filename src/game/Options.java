@@ -1,79 +1,49 @@
 package game;
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import static game.App.menu;
 import static game.Controller.isTimelinePause;
 import static game.Controller.timeline;
+import static game.Donnees.LARGEUR;
 import static game.Game.*;
-import static game.App.menu;
 
 public class Options {
     public static HBox menuBarre;
 
-    public Options(Stage primaryStage){
+    public Options(Stage primaryStage) {
         // Aide
         javafx.scene.control.Menu mn0 = new javafx.scene.control.Menu("Aide");
-        javafx.scene.control.CheckMenuItem mi01 = new javafx.scene.control.CheckMenuItem("Touches");
+        javafx.scene.control.CheckMenuItem mi01 = new javafx.scene.control.CheckMenuItem("Jeu");
         javafx.scene.control.CheckMenuItem mi02 = new javafx.scene.control.CheckMenuItem("Crédits");
-        String messageTouches =
-                """
-                Aller en HAUT           :  Z  ou  ⬆
-                Aller en BAS            :  S  ou  ⬇
-                Aller à GAUCHE          :  Q  ou  ⬅
-                Aller à DROITE          :  D  ou  ➡
-                Play, Pause, Restart    :  ESPACE
-                Quitter                 :  ECHAP
-                """;
-        String messageCredits =
-                """
-                Projet réalisé dans le cadre de la 1ère année en DUT Informatique de Belfort.
-                2020/2021 - S2B1
-                
-                Tuteur: HILDENBRAND Jérome
-                Chef de Projet: HENNEQUIN Maxime 
-                
-                Equipe:
-                BARCON Baptiste
-                JACQUOT Maxime
-                JARQUIS Peter
-                KLEIN Guillaume
-                """;
 
-        mi01.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+        mi01.selectedProperty().addListener(e -> {
             isTimelinePause = true;
             timeline.pause();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setX(700);alert.setY(890 >> 1);
-            alert.setTitle("Touches");
-            alert.setHeaderText(null);
-            alert.setContentText(messageTouches);
-            alert.showAndWait();
+            Image imgJeu = new Image("file:src/img/jeu.png", LARGEUR, 800, false, true);
+            gc.drawImage(imgJeu, 0, 0);
         });
-        mi02.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+        mi02.selectedProperty().addListener(e -> {
             isTimelinePause = true;
             timeline.pause();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setX(700);alert.setY(890 >> 1);
-            alert.setTitle("Crédits");
-            alert.setHeaderText(null);
-            alert.setContentText(messageCredits);
-            alert.showAndWait();
+            Image imgCredits = new Image("file:src/img/credits.png", LARGEUR, 800, false, true);
+            gc.drawImage(imgCredits, 0, 0);
         });
-        mn0.getItems().addAll(mi01,mi02);
+        mn0.getItems().addAll(mi01, mi02);
 
         // IA
         javafx.scene.control.Menu mn1 = new javafx.scene.control.Menu("IA");
-        javafx.scene.control.CheckMenuItem mi1 = new javafx.scene.control.CheckMenuItem("IA");
-        mi1.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+        javafx.scene.control.CheckMenuItem mi11 = new javafx.scene.control.CheckMenuItem("IA");
+        mi11.selectedProperty().addListener(e -> {
             versusMode = !versusMode;
             Game.reset();
         });
-        mn1.getItems().add(mi1);
+        mn1.getItems().add(mi11);
 
         // Vitesse
         javafx.scene.control.Menu mn2 = new javafx.scene.control.Menu("Vitesse");
@@ -84,13 +54,33 @@ public class Options {
         javafx.scene.control.CheckMenuItem mi25 = new javafx.scene.control.CheckMenuItem("HARDCORE");
 
         /* Ecouteurs */
-        mi21.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {VITESSE = 1;Game.reset();mi21.setSelected(false);});
-        mi22.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {VITESSE = 2.5;Game.reset();mi22.setSelected(false);});
-        mi23.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {VITESSE = 5;Game.reset();mi23.setSelected(false);});
-        mi24.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {VITESSE = 8;Game.reset();mi24.setSelected(false);});
-        mi25.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {VITESSE = 10;Game.reset();mi25.setSelected(false);});
+        mi21.selectedProperty().addListener(e -> {
+            initVitesse(1);
+            Game.reset();
+            mi21.setSelected(false);
+        });
+        mi22.selectedProperty().addListener(e -> {
+            initVitesse(2.5);
+            Game.reset();
+            mi22.setSelected(false);
+        });
+        mi23.selectedProperty().addListener(e -> {
+            initVitesse(5);
+            Game.reset();
+            mi23.setSelected(false);
+        });
+        mi24.selectedProperty().addListener(e -> {
+            initVitesse(8);
+            Game.reset();
+            mi24.setSelected(false);
+        });
+        mi25.selectedProperty().addListener(e -> {
+            initVitesse(10);
+            Game.reset();
+            mi25.setSelected(false);
+        });
 
-        mn2.getItems().addAll(mi21,mi22,mi23,mi24,mi25);
+        mn2.getItems().addAll(mi21, mi22, mi23, mi24, mi25);
 
 
         // Couleur
@@ -103,33 +93,68 @@ public class Options {
         javafx.scene.control.CheckMenuItem mi36 = new javafx.scene.control.CheckMenuItem("Blanc");
 
         /* Ecouteurs */
-        mi31.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.RED);snake1.setCouleur(Color.BLUE);Game.reset();mi31.setSelected(false);});
-        mi32.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.BLUE);snake1.setCouleur(Color.RED);Game.reset();mi32.setSelected(false);});
-        mi33.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.GREEN);Game.reset();mi33.setSelected(false);});
-        mi34.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.PINK);Game.reset();mi34.setSelected(false);});
-        mi35.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.ORANGE);Game.reset();mi35.setSelected(false);});
-        mi36.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {snake.setCouleur(Color.WHITE);Game.reset();mi36.setSelected(false);});
+        mi31.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.RED);
+            snake1.setCouleur(Color.BLUE);
+            Game.reset();
+            mi31.setSelected(false);
+        });
+        mi32.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.BLUE);
+            snake1.setCouleur(Color.RED);
+            Game.reset();
+            mi32.setSelected(false);
+        });
+        mi33.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.GREEN);
+            Game.reset();
+            mi33.setSelected(false);
+        });
+        mi34.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.PINK);
+            Game.reset();
+            mi34.setSelected(false);
+        });
+        mi35.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.ORANGE);
+            Game.reset();
+            mi35.setSelected(false);
+        });
+        mi36.selectedProperty().addListener(e -> {
+            snake.setCouleur(Color.WHITE);
+            Game.reset();
+            mi36.setSelected(false);
+        });
 
-        mn3.getItems().addAll(mi31,mi32,mi33,mi34,mi35,mi36);
+        mn3.getItems().addAll(mi31, mi32, mi33, mi34, mi35, mi36);
+
+        // Angle
+        javafx.scene.control.Menu mn4 = new javafx.scene.control.Menu("Angle");
+        javafx.scene.control.CheckMenuItem mi41 = new javafx.scene.control.CheckMenuItem("Angle");
+        mi41.selectedProperty().addListener(e -> {
+            modeAngle = !modeAngle;
+            Game.reset();
+        });
+        mn4.getItems().add(mi41);
 
         // Retour au menu
-        javafx.scene.control.Menu mn4 = new javafx.scene.control.Menu("Menu");
-        javafx.scene.control.CheckMenuItem mi41 = new javafx.scene.control.CheckMenuItem("Retour au menu");
-        mi41.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {
+        javafx.scene.control.Menu mn5 = new javafx.scene.control.Menu("Menu");
+        javafx.scene.control.CheckMenuItem mi51 = new javafx.scene.control.CheckMenuItem("Retour au menu");
+        mi51.selectedProperty().addListener(e -> {
             menu.setVisible(true);
             primaryStage.hide();
         });
-        mn4.getItems().addAll(mi41);
+        mn5.getItems().addAll(mi51);
 
         // Quitter
-        javafx.scene.control.Menu mn5 = new javafx.scene.control.Menu("Quitter");
-        javafx.scene.control.CheckMenuItem mi51 = new javafx.scene.control.CheckMenuItem("EXIT");
-        mi51.selectedProperty().addListener((ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) -> {System.exit(0);});
-        mn5.getItems().addAll(mi51);
+        javafx.scene.control.Menu mn6 = new javafx.scene.control.Menu("Quitter");
+        javafx.scene.control.CheckMenuItem mi61 = new javafx.scene.control.CheckMenuItem("EXIT");
+        mi61.selectedProperty().addListener(e -> System.exit(0));
+        mn6.getItems().addAll(mi61);
 
         // Ajouts à la MenuBar
         javafx.scene.control.MenuBar mb = new MenuBar();
-        mb.getMenus().addAll(mn0,mn1,mn2,mn3,mn4,mn5);
+        mb.getMenus().addAll(mn0, mn1, mn2, mn3, mn4, mn5, mn6);
         menuBarre = new HBox(mb);
     }
 }

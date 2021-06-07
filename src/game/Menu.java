@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Objects;
 
 import static game.Game.*;
 
@@ -15,6 +16,7 @@ public class Menu extends JFrame {
     private JButton play;
     private JCheckBox chkReseau;
     private JCheckBox checkBox;
+    private JCheckBox chkAngle;
     private JComboBox<String> comboBoxCouleur;
     private JComboBox<String> comboBoxVitesse;
     private JSlider slider;
@@ -30,24 +32,28 @@ public class Menu extends JFrame {
         setResizable(false);
 
         // Icone
-        try{
+        try {
             ImageIcon icon = new ImageIcon("src/img/iconSnake.png");
             setIconImage(icon.getImage());
-        } catch (Exception e){msg("Icone Manquante.");}
+        } catch (Exception e) {
+            msg("Icone Manquante.");
+        }
 
 
         // Image de fond
         try {
             Image fond = Toolkit.getDefaultToolkit().getImage("src/img/fond.png");
             MediaTracker mt = new MediaTracker(this);
-            mt.addImage(fond,0);
+            mt.addImage(fond, 0);
             mt.waitForAll();
             setContentPane(new ContentPane(fond));
-        } catch (Exception e){msg("Fond Manquant.");}
+        } catch (Exception e) {
+            msg("Fond Manquant.");
+        }
 
         // Ecran centré
-        setLocation(500,100);
-        setSize(920,845);
+        setLocation(500, 100);
+        setSize(940, 845);
 
         add(panel1);
 
@@ -59,23 +65,28 @@ public class Menu extends JFrame {
         });
 
         // IA
-        checkBox.setSize(new Dimension(20,20));
+        checkBox.setSize(new Dimension(20, 20));
         ImageIcon iconCheckBoxIABase = new ImageIcon(new ImageIcon("src/img/iaNon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         checkBox.setIcon(iconCheckBoxIABase);
         checkBox.addActionListener(e -> {
             if (versusMode) {
                 ImageIcon iconCheckBoxIAOui = new ImageIcon(new ImageIcon("src/img/iaOui.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
                 checkBox.setIcon(iconCheckBoxIAOui);
-            }else{
+            } else {
                 ImageIcon iconCheckBoxIANon = new ImageIcon(new ImageIcon("src/img/iaNon.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
                 checkBox.setIcon(iconCheckBoxIANon);
             }
         });
         checkBox.addChangeListener(e -> versusMode = !versusMode);
 
+
+        chkAngle.setSize(new Dimension(20, 20));
+        chkAngle.addChangeListener(e -> modeAngle = !modeAngle);
+
         // Rochers
         slider.setValue(0);
-        slider.setMinimum(0);slider.setMaximum(5);
+        slider.setMinimum(0);
+        slider.setMaximum(5);
         slider.addChangeListener(e -> {
             nbRocher = slider.getValue();
             labelRochers.setText("Nombre de Rochers : " + nbRocher);
@@ -84,38 +95,38 @@ public class Menu extends JFrame {
 
         // Couleurs
         ItemListener comboItemListenerCouleur = e1 -> {
-            if(e1.getStateChange() == ItemEvent.SELECTED) {
+            if (e1.getStateChange() == ItemEvent.SELECTED) {
                 String color = (String) e1.getItem();
                 switch (color) {
                     case "ROUGE" -> {
                         couleurSnake = javafx.scene.paint.Color.RED;
                         cheminGif = "snakeRouge";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                     case "BLEU" -> {
                         couleurSnake = javafx.scene.paint.Color.BLUE;
                         cheminGif = "snakeBleu";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                     case "VERT" -> {
                         couleurSnake = javafx.scene.paint.Color.GREEN;
                         cheminGif = "snakeVert";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                     case "ROSE" -> {
                         couleurSnake = javafx.scene.paint.Color.PINK;
                         cheminGif = "snakeRose";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                     case "ORANGE" -> {
                         couleurSnake = javafx.scene.paint.Color.ORANGE;
                         cheminGif = "snakeOrange";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                     case "BLANC" -> {
                         couleurSnake = javafx.scene.paint.Color.WHITE;
                         cheminGif = "snakeBlanc";
-                        gif(labelVue,cheminGif);
+                        gif(labelVue, cheminGif);
                     }
                 }
             }
@@ -123,18 +134,18 @@ public class Menu extends JFrame {
         comboBoxCouleur.addItemListener(comboItemListenerCouleur);
 
         // Panel animé
-        gif(labelVue,cheminGif);
+        gif(labelVue, cheminGif);
 
         // Vitesse
         ItemListener comboItemListenerVitesse = e1 -> {
-            if(e1.getStateChange() == ItemEvent.SELECTED) {
+            if (e1.getStateChange() == ItemEvent.SELECTED) {
                 String color = (String) e1.getItem();
                 switch (color) {
-                    case "TROP LENT" -> VITESSE = 1;
-                    case "LENT" -> VITESSE = 2.5;
-                    case "NORMAL" -> VITESSE = 5;
-                    case "RAPIDE" -> VITESSE = 8;
-                    case "HARDCORE" -> VITESSE = 10;
+                    case "TROP LENT" -> initVitesse(1);
+                    case "LENT" -> initVitesse(2.5);
+                    case "NORMAL" -> initVitesse(5);
+                    case "RAPIDE" -> initVitesse(8);
+                    case "HARDCORE" -> initVitesse(10);
                 }
             }
         };
@@ -142,14 +153,14 @@ public class Menu extends JFrame {
         comboBoxVitesse.addItemListener(comboItemListenerVitesse);
 
         // Reseau
-        chkReseau.setSize(new Dimension(20,20));
+        chkReseau.setSize(new Dimension(20, 20));
         ImageIcon iconCheckBoxReseauBase = new ImageIcon(new ImageIcon("src/img/croix.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         chkReseau.setIcon(iconCheckBoxReseauBase);
         chkReseau.addActionListener(e -> {
             if (reseauMode) {
                 ImageIcon iconCheckBoxReseauOui = new ImageIcon(new ImageIcon("src/img/valide.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
                 chkReseau.setIcon(iconCheckBoxReseauOui);
-            }else{
+            } else {
                 ImageIcon iconCheckBoxReseauNon = new ImageIcon(new ImageIcon("src/img/croix.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
                 chkReseau.setIcon(iconCheckBoxReseauNon);
             }
@@ -157,14 +168,14 @@ public class Menu extends JFrame {
         chkReseau.addChangeListener(e -> reseauMode = !reseauMode);
 
         // CheckBox Son
-        checkBoxSon.setSize(new Dimension(30,30));
+        checkBoxSon.setSize(new Dimension(30, 30));
         ImageIcon iconCheckBoxSonBase = new ImageIcon(new ImageIcon("src/img/son.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         checkBoxSon.setIcon(iconCheckBoxSonBase);
         checkBoxSon.addActionListener(e -> {
             if (sonMode) {
                 ImageIcon iconCheckBoxSonOui = new ImageIcon(new ImageIcon("src/img/son.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
                 checkBoxSon.setIcon(iconCheckBoxSonOui);
-            }else{
+            } else {
                 ImageIcon iconCheckBoxSonNon = new ImageIcon(new ImageIcon("src/img/sonCoupe.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
                 checkBoxSon.setIcon(iconCheckBoxSonNon);
             }
@@ -176,24 +187,27 @@ public class Menu extends JFrame {
 
 
     /**
-     *
      * @param labelVue : Le label auquel on attribue le gif.
-     * @param chemin : Le chemin du dossier où se trouve le gif.
+     * @param chemin   : Le chemin du dossier où se trouve le gif.
      */
-    public void gif(JLabel labelVue, String chemin){
+    public void gif(JLabel labelVue, String chemin) {
         try {
-            ImageIcon gif = new ImageIcon(this.getClass().getResource("/gifMenu/" + chemin + ".gif"));
+            ImageIcon gif = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/gifMenu/" + chemin + ".gif")));
             labelVue.setIcon(gif);
             Border border = BorderFactory.createLineBorder(java.awt.Color.BLACK, 5);
             labelVue.setBorder(border);
-        } catch (Exception e){labelVue.setPreferredSize(new Dimension(400,400));labelVue.setText("Gif Manquant.");}
+        } catch (Exception e) {
+            labelVue.setPreferredSize(new Dimension(400, 400));
+            labelVue.setText("Gif Manquant.");
+        }
     }
 
     /**
      * Pour rendre invisible un JButton.
+     *
      * @param b : Le bouton à rendre invisible.
      */
-    public void invisible(JButton b){
+    public void invisible(JButton b) {
         b.setOpaque(false);
         b.setContentAreaFilled(false);
         b.setBorderPainted(false);
@@ -204,8 +218,15 @@ public class Menu extends JFrame {
 /**
  * Pour mettre un fond sur la JFrame.
  */
-class ContentPane extends JPanel{
+class ContentPane extends JPanel {
     private final Image image;
-    public ContentPane(Image fond){super();image=fond;}
-    public void paintComponent(Graphics g){g.drawImage(image,0,0,null);}
+
+    public ContentPane(Image fond) {
+        super();
+        image = fond;
+    }
+
+    public void paintComponent(Graphics g) {
+        g.drawImage(image, 0, 0, null);
+    }
 }

@@ -15,7 +15,7 @@ public class Client {
     public Client(String adresseIP) {
         try {
             int port = 4646;
-            Socket s = new Socket(adresseIP, port);  // Socket avec le port du serveur et son IP
+            Socket s = new Socket("25.55.162.201", port);  // Socket avec le port du serveur et son IP
             System.out.println("Connexion établie avec Succès !");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); // Récupere les infos
@@ -24,18 +24,8 @@ public class Client {
             // Partie recu messages
             String recu = "";
             String msg = "";
-            while (!recu.equals("stop") && !msg.equals("stop")) {
-                /* RECU */
-                recu = in.readLine();
-                System.out.println(recu); // Affiche l'info récupérée
 
-                /* ENVOI */
-                System.out.print("-> ");
-                msg = input.nextLine();
-                out.println(msg); // Affiche un message
-                out.flush(); // Envoi le message
-            }
-
+            new Game();
 
             s.close(); // Fermer le Socket
         } catch (IOException e) {

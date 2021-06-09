@@ -1,7 +1,6 @@
 package game.menu;
 
 import game.Game;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;

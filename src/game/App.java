@@ -101,12 +101,6 @@ public final class App extends Application {
     @Override
     public void start(final Stage primaryStage) {
 
-        if (reseauMode) {
-            new Connexion();
-        } else {
-            new Options(primaryStage);
-        }
-
         // Calibrage
         primaryStage.setX(POSX);
         primaryStage.setY(POSY);
@@ -122,10 +116,18 @@ public final class App extends Application {
         } catch (Exception e) {
             msg("Icone non répertoriée");
         }
-        primaryStage.setResizable(false);
-        root.getChildren().addAll(menuBarre, canvas);
-        primaryStage.show();
 
-        initial();
+        primaryStage.setResizable(false);
+        if (reseauMode){
+            root.getChildren().addAll(canvas);
+            primaryStage.show();
+            new Connexion();
+        } else {
+            new Options(primaryStage);
+
+            root.getChildren().addAll(menuBarre, canvas);
+            primaryStage.show();
+            initial();
+        }
     }
 }

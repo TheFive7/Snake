@@ -1,5 +1,6 @@
-package game;
+package game.reseau;
 
+import game.App;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -8,9 +9,9 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import static game.App.backgroundImage;
-import static game.Controller.isTimelinePause;
-import static game.Donnees.*;
-import static game.Game.*;
+import static game.reseau.Controller.isTimelinePause;
+import static game.reseau.Donnees.*;
+import static game.reseau.Game.*;
 
 public class Draw {
 
@@ -27,35 +28,13 @@ public class Draw {
 
         // Score
         gc.setFill(snake.getCouleurTete());
-        gc.setFont(Font.loadFont(
-                Objects.requireNonNull(App.class.getResource("minecraft_font.ttf")).toExternalForm(),
-                20
-        ));
+        gc.setFont(new Font("arial", 20));
         gc.fillText("Score: " + snake.getScore(), LARGEUR / 30.0, HAUTEUR / 15.0);
 
-        if (versusMode) {
-            gc.setFill(snake1.getCouleurTete());
-            gc.fillText("Score: " + snake1.getScore(), LARGEUR / 4.0, HAUTEUR / 15.0);
-        } else if (curseur < 300) {
-            gc.setFill(snake1.getCouleurTete());
-            gc.fillText("Score: " + snake1.getScore(), LARGEUR / 4.0, HAUTEUR / 15.0);
-        }
-
         // Spawn
-        if (versusMode || curseur < 300) {
-            if (snake1.getGameOver()){
-                if (curseur % 60 == 0) {
-                    gc.setFont(Font.loadFont(
-                            Objects.requireNonNull(App.class.getResource("minecraft_font.ttf")).toExternalForm(),
-                            20
-                    ));
-                }
-                gc.setFill(snake1.getCouleurTete());
-                gc.fillRect(LARGEUR >> 2, LARGEUR >> 1, LARGEURSERPENT, LARGEURSERPENT);
-                gc.setFill(Color.BLACK);
-                gc.fillText(""+curseur / 60, (LARGEUR >> 2) + 10, (LARGEUR >> 1) + 25);
-            }
-        }
+        gc.setFill(snake.getCouleurTete());
+        gc.fillRect(LARGEUR >> 1, LARGEUR >> 1, LARGEURSERPENT, LARGEURSERPENT);
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package game;
+package game.reseau;
 
 import javax.sound.sampled.*;
 import java.io.File;

@@ -14,9 +14,12 @@ import static game.Game.msg;
 
 public class Serveur extends Thread {
     private static final Scanner input = new Scanner(System.in);
+    public static PrintWriter out;
+    public static BufferedReader in;
 
     public Serveur() {
         try {
+
             int port = 4646;
             int time = 30000;
             msg("Temps d'attente maximum: " + time / 1000 + "s");
@@ -25,24 +28,10 @@ public class Serveur extends Thread {
             Socket s = sS.accept(); // Le seveur accepte le client
             msg("Connexion établie avec Succès !");
 
-            PrintWriter out = new PrintWriter(s.getOutputStream()); // Prendre le flux du Socket
-            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream())); // Récupere les infos
+            out = new PrintWriter(s.getOutputStream()); // Prendre le flux du Socket
+            in = new BufferedReader(new InputStreamReader(s.getInputStream())); // Récupere les infos
 
-            // Partie envoi des messages
-            String recu = "";
-            String msg = "";
-            while (!recu.equals("stop") && !msg.equals("stop")) {
-                /* ENVOI */
-                System.out.print("-> ");
-                msg = input.nextLine();
-                out.println(msg); // Affiche un message
-                out.flush(); // Envoi le message
-
-                /* RECU */
-                recu = in.readLine();
-                System.out.println(recu); // Affiche l'info récupérée
-            }
-
+            new Game();
 
             sS.close(); // Fermer le serveur
             s.close(); // Fermer le Socket
